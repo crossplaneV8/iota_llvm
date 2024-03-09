@@ -1,0 +1,29 @@
+
+/* flip the string */
+
+(def (flip str:*i8)
+    (var x 0)
+    (var y 0)
+    (while (!= [str y] 0)
+        (++ y)
+    )
+    (-- y)
+    (while (< x y)
+        (var tmp [str x])
+        (set [str x] [str y])
+        (set [str y] tmp)
+        (++ x)
+        (-- y)
+    )
+)
+
+(import (gets:*i8 str:*i8))
+
+(begin
+    (var str:*i8 (array:i8 1024))
+    (printf "please enter string:\n")
+    (gets str)
+    (flip str)
+    (printf "flipped string:\n%s\n" str)
+)
+

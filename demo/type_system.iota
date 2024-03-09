@@ -1,0 +1,25 @@
+
+/* add two i8 values, returns i32 */
+(def (fun:i32 x:i8 y:i8)
+    (+ x y)
+)
+
+
+(begin
+    (var a 1)           // a -> i64
+    (var b 2.0)         // b -> f64
+    (var c 'A')         // c -> i64
+    (var d:f64 a)       // d -> f64
+    (var e:i8 (+ a b))  // e -> i8
+    (var f (fun a b))   // f -> i32
+    (var g (+ e f))     // g -> i32
+
+    (printf "a = %lld\n" a)
+    (printf "b = %f\n" b)
+    (printf "c = %lld\n" c)
+    (printf "d = %f\n" d)
+    (printf "e = %d\n" e)
+    (printf "f = %d\n" f)
+    (printf "g = %d\n" g)
+)
+

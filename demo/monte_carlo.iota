@@ -1,0 +1,32 @@
+
+(import (rand:i32))
+
+(def (uniform:f64 x0:f64 x1:f64)
+    (var d:f64 (- x1 x0))
+    (var m:i32 0x7fffffff)
+    (var a:i32 (rand))
+    (var b:i32 (<< (rand) 16))
+    (var c:i32 (& (^ a b) m))
+    (var v:f64 (/ (* d c) m))
+    (+ x0 v)
+)
+
+
+(begin
+    /* estimating pi using monte carlo method */
+    (var a 0)
+    (var b 0)
+    (var i 0)
+    (while (< i 1000000)
+        (var x (uniform 0 1))
+        (var y (uniform 0 1))
+        (var r (+ (* x x) (* y y)))
+        (if (< r 1)
+            (++ a)
+            (++ b)
+        )
+        (++ i)
+    )
+    (printf "pi <- %.2f\n" (/ (* 4.0 a) (+ a b)))
+)
+

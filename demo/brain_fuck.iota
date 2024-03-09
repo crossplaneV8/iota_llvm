@@ -1,0 +1,50 @@
+
+(import (putchar:i32 c:i32))
+(import (getchar:i32))
+
+
+/* BrainFuck interpreter */
+
+(def (brain_fuck code:*i8)
+    (var stack (array:i8 65536))
+    (var sp 0)
+    (var pc 0)
+
+    (while (!= [code pc] 0)
+        (var instr [code pc])
+        (if (== instr '<') (-- sp))
+        (if (== instr '>') (++ sp))
+        (if (== instr '+') (set [stack sp] (+ [stack sp] 1)))
+        (if (== instr '-') (set [stack sp] (- [stack sp] 1)))
+        (if (== instr ',') (set [stack sp] (getchar)))
+        (if (== instr '.') (putchar [stack sp]))
+        (if (and (== instr '[') (== [stack sp] 0))
+            (begin
+                (var n 1)
+                (while (!= n 0)
+                    (++ pc)
+                    (if (== [code pc] '[') (++ n))
+                    (if (== [code pc] ']') (-- n))
+                )
+            )
+        )
+        (if (and (== instr ']') (!= [stack sp] 0))
+            (begin
+                (var n 1)
+                (while (!= n 0)
+                    (-- pc)
+                    (if (== [code pc] '[') (-- n))
+                    (if (== [code pc] ']') (++ n))
+                )
+            )
+        )
+        (++ pc)
+    )
+)
+
+
+(begin
+    (var program "++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++.")
+    (brain_fuck program)
+)
+

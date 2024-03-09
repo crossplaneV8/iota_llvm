@@ -1,0 +1,30 @@
+
+/* abs function using float-point bit hack */
+
+(def (abs:f64 x:f64)
+    (bitcast:f64 (& (bitcast:i64 x) 0x7fffffffffffffff))
+)
+
+
+/* sine function using iterative method */
+
+(def (sin:f64 x:f64)
+    (if (> (abs x) 0.0001)
+        (begin
+            (var t (sin (/ x 3)))
+            (- (* 3 t) (* 4 t t t))
+        )
+        x
+    )
+)
+
+
+(begin
+    (var pi 3.1416)
+    (var x 0.0)
+    (while (<= x 2)
+        (printf "sin(%.2f pi) = %.3f\n" x (sin (* x pi)))
+        (set x (+ x 0.25))
+    )
+)
+

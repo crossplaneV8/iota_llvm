@@ -1,0 +1,47 @@
+
+(def (print_vec arr:*i64 len:i64)
+    (var i 0)
+    (while (< i len)
+        (printf "%lld, " [arr i])
+        (++ i)
+    )
+    (printf "\n")
+)
+
+(def (get_int:i64)
+    (var tmp 0)
+    (scanf "%lld" (& tmp))
+    tmp
+)
+
+
+/* standard C library function: qsort() */
+(import (qsort:i32 base:*i8 num:i64 size:i64 cmp:*i8))
+
+(def (cmp:i32 x:*i64 y:*i64)
+    (- [x 0] [y 0])
+)
+
+(begin
+    (printf "please enter vec len: ")
+    (var vec_length (get_int))
+    (var vec (array:i64 vec_length))
+    (var element_size 8)
+
+    (var i 0)
+    (while (< i vec_length)
+        (printf "please enter vec[%lld]: " i)
+        (set (vec i) (get_int))
+        (++ i)
+    )
+
+    (printf "initial vec:\n")
+    (print_vec vec vec_length)
+
+    /* call C library function: qsort() */
+    (qsort vec vec_length element_size cmp)
+
+    (printf "sorted vec:\n")
+    (print_vec vec vec_length)
+)
+

@@ -1,0 +1,24 @@
+
+/* fast inv-sqrt using float-point bit hack */
+
+(def (inv_sqrt:f64 x:f64)
+    (var magic:i64 0x5fe6ec85e7de30da)
+    (var xhalf:f64 (* x 0.5))
+    (var i:i64 (bitcast:i64 x))
+    (set i (- magic (>> i 1)))
+    (var y:f64 (bitcast:f64 i))
+    (set y (* y (- 1.5 (* xhalf y y))))
+    (set y (* y (- 1.5 (* xhalf y y))))
+    (set y (* y (- 1.5 (* xhalf y y))))
+    y
+)
+
+(begin
+    (var i:i64 1)
+    (while (<= i 100)
+        (var s:f64 (/ 1 (inv_sqrt i)))
+        (printf "sqrt(%lld) = %f\n" i s)
+        (++ i)
+    )
+)
+

@@ -1,0 +1,56 @@
+
+/* bubble sort */
+
+(def (sort arr:*i64 len:i64)
+    (var n (- len 1))
+    (while (> n 0)
+        (var i 0)
+        (while (< i n)
+            (var j (+ i 1))
+            (if (> [arr i] [arr j])
+                (begin
+                    (var tmp [arr i])
+                    (set [arr i] [arr j])
+                    (set [arr j] tmp)
+                )
+            )
+            (++ i)
+        )
+        (-- n)
+    )
+)
+
+(def (print_vec arr:*i64 len:i64)
+    (var i 0)
+    (while (< i len)
+        (printf "%lld, " [arr i])
+        (++ i)
+    )
+    (printf "\n")
+)
+
+(def (get_int:i64)
+    (var tmp 0)
+    (scanf "%lld" (& tmp))
+    tmp
+)
+
+(begin
+    (printf "please enter vec len: ")
+    (var len (get_int))
+    (var vec (array:i64 len))
+
+    (var i 0)
+    (while (< i len)
+        (printf "please enter vec[%lld]: " i)
+        (set (vec i) (get_int))
+        (++ i)
+    )
+
+    (printf "initial vec:\n")
+    (print_vec vec len)
+    (printf "sorted vec:\n")
+    (sort vec len)
+    (print_vec vec len)
+)
+
