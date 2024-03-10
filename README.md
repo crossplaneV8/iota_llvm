@@ -1,9 +1,10 @@
 # iota_llvm
-iota is a statically typed toy language based on LLVM  
-it adopts a minimalist design philosophy and runs as fast as C  
-it's also ABI compatible with C functions which in favors of mixed programming  
+- iota is a statically typed toy language based on LLVM  
+- adopts a minimalist design philosophy and runs as fast as C  
+- ABI compatible with C functions which in favors of mixed programming  
 
-# grammar
+# code style
+*iota adopts s-expression syntax*
 ```scheme
 // short comment
 /* long comment */
@@ -13,7 +14,7 @@ it's also ABI compatible with C functions which in favors of mixed programming
 (var b:f64 (+ a 3))             // double b = a + 3;
 (var x 0x7fff)                  // auto x = 0x7fff;
 (var y 3.1416)                  // auto y = 3.1416;
-(var str "hello world")         // auto str = "hello world"
+(var str "hello world")         // auto str = "hello world";
 (var vec (array:f32 len))       // float vec[len];
 (var ptr:*i32 (malloc 64))      // int *ptr = malloc(64);
 
